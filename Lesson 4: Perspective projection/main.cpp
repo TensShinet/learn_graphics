@@ -25,7 +25,7 @@ Matrix v2m(Vec3f v) {
     m[1][0] = v.y;
     m[2][0] = v.z;
 
-    std::cout << "v.z" << v.z << std::endl;
+    // std::cout << "v.z" << v.z << std::endl;
 
     m[3][0] = 1.f;
     return m;
@@ -58,6 +58,7 @@ void triangle(Vec3i t0, Vec3i t1, Vec3i t2, Vec2i uv0, Vec2i uv1, Vec2i uv2, TGA
         Vec3i A   =               t0  + Vec3f(t2-t0  )*alpha;
         Vec3i B   = second_half ? t1  + Vec3f(t2-t1  )*beta : t0  + Vec3f(t1-t0  )*beta;
         Vec2i uvA =               uv0 +      (uv2-uv0)*alpha;
+        std::cout << "uvA" << uvA << std::endl;
         Vec2i uvB = second_half ? uv1 +      (uv2-uv1)*beta : uv0 +      (uv1-uv0)*beta;
         if (A.x>B.x) { std::swap(A, B); std::swap(uvA, uvB); }
         for (int j=A.x; j<=B.x; j++) {

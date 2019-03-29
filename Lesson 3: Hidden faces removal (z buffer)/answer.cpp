@@ -2,7 +2,7 @@
 #include <cmath>
 #include <iostream>
 #include <limits>
-#include "../tgaimage.h"
+#include "tgaimage.h"
 #include "../geometry.h"
 #include "../model.h"
 
@@ -66,7 +66,7 @@ void triangle(Vec3f *pts, float *zbuffer, TGAImage &image, TGAColor color) {
             P.z = 0;
             for (int i=0; i<3; i++) P.z += pts[i][2]*bc_screen[i];
             if (zbuffer[int(P.x+P.y*width)]<P.z) {
-                std::cout<< "p.z " << P.z << std::endl; 
+                // std::cout<< "p.z " << P.z << std::endl; 
                 zbuffer[int(P.x+P.y*width)] = P.z;
                 image.set(P.x, P.y, color);
             }
@@ -107,6 +107,16 @@ int main(int argc, char** argv) {
 
     image.flip_vertically(); // i want to have the origin at the left bottom corner of the image
     image.write_tga_file("output.tga");
+
+    TGAImage zbimage(width, height, TGAImage::GRAYSCALE);
+    for (int i=0; i<width; i++) {
+        for (int j=0; j<height; j++) {
+            zbimage.set(i, j, TGAColor(zbuffer[i+j*width], 1));
+        }
+    }
+    zbimage.flip_vertically(); // i want to have the origin at the left bottom corner of the image
+    zbimage.write_tga_file("zbuffer.tga");
+    // }
     delete model;
     return 0;
 }
