@@ -30,7 +30,6 @@ struct Shader : public IShader {
         ndc_tri.set_col(nthvert, proj<3>(gl_Vertex/gl_Vertex[3]));
         return gl_Vertex;
     }
-
     virtual bool fragment(Vec3f bar, TGAColor &color) {
         Vec3f bn = (varying_nrm*bar).normalize();
         Vec2f uv = varying_uv*bar;

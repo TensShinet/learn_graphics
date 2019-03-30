@@ -43,7 +43,7 @@ struct Shader : public IShader {
         */
         // std::cout << "fuck" << '\n';
         Vec2f uv = varying_uv*bar;
-        std::cout << uv << '\n';
+        // std::cout << uv << '\n';
         Vec3f n = proj<3>(uniform_MIT*embed<4>(model->normal(uv))).normalize();
         Vec3f l = proj<3>(uniform_M  *embed<4>(light_dir        )).normalize();
         Vec3f r = (n*(n*l*2.f) - l).normalize();   // reflected light
@@ -62,7 +62,7 @@ int main(int argc, char** argv) {
     if (2==argc) {
         model = new Model(argv[1]);
     } else {
-        model = new Model("../obj/african_head/african_head.obj");
+        model = new Model("../obj//african_head.obj");
     }
 
     lookat(eye, center, up);
@@ -88,7 +88,10 @@ int main(int argc, char** argv) {
             // 顶点着色器
             screen_coords[j] = shader.vertex(i, j);
         }
-        // std::cout << "test" << '\n';
+        std::cout << "fuck1 " << screen_coords[0]  << '\n';
+        std::cout << "fuck2 " << screen_coords[1] << '\n';
+        std::cout << "fuck3 " << screen_coords[2] << '\n';
+
         triangle(screen_coords, shader, image, zbuffer);
     }
 
